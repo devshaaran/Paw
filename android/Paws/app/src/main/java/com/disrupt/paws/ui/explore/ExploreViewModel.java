@@ -1,16 +1,16 @@
-package com.disrupt.paws.ui.dashboard;
+package com.disrupt.paws.ui.explore;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class ExploreViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public ExploreViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("Explore");
     }
 
     public LiveData<String> getText() {
