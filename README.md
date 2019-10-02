@@ -1,2 +1,2 @@
-# Paw
+# Paws
 Facebook for pets
