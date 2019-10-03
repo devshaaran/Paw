@@ -81,8 +81,7 @@ export default class Mapviewer extends Component {
    
 
     onDrawCreate(features){
-
-        console.log(features);
+        console.log(features, 'features')
 
         let pointObjects = features.features[0].geometry.coordinates.map((item) => {
             return {coordinates: item}
@@ -103,14 +102,22 @@ export default class Mapviewer extends Component {
                 let updateOjb = {...this.state.geoJsonSourceOptions};
                 updateOjb.source.data.geometry = coords;
                 console.log(updateOjb)
-                 this.setState({geoJsonSourceOptions: updateOjb})
+                console.log(updateOjb, 'update obj')
+               //this.setState({geoJsonSourceOptions: updateOjb})
+                let id = this.drawControl.draw.getSelectedIds();
+                this.drawControl.draw.delete(id);
+               this.drawControl.draw.add(updateOjb.source.data)
+
               }
              
             })
+
+
        
     }
 
     onDrawUpdate(features){
+
         console.log('drow updated', features);
     }
 
@@ -153,7 +160,9 @@ export default class Mapviewer extends Component {
                     line_string: true,
                     trash: true
                   }} 
-                  displayControlsDefault={false}/>
+                  displayControlsDefault={false}
+                  ref={(drawControl) => { this.drawControl = drawControl; }}
+                  />
 
                 </Map>
 
