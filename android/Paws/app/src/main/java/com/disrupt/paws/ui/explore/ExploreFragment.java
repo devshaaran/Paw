@@ -8,13 +8,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.disrupt.paws.R;
 
-public class ExploreFragment extends Fragment {
+import dagger.android.support.DaggerFragment;
+
+public class ExploreFragment extends DaggerFragment {
 
     private ExploreViewModel exploreViewModel;
 

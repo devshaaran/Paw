@@ -9,9 +9,9 @@ import androidx.paging.PageKeyedDataSource;
 
 import com.disrupt.paws.model.Post;
 
-public class PostsDataSourceFactory extends DataSource.Factory<Pair<String, Integer>, Post> {
+public class PostsDataSourceFactory extends DataSource.Factory<Pair<Long, Integer>, Post> {
 
-    private MutableLiveData<PageKeyedDataSource<Pair<String, Integer>, Post>> photosLiveDataSource = new MutableLiveData<>();
+    private MutableLiveData<PageKeyedDataSource<Pair<Long, Integer>, Post>> photosLiveDataSource = new MutableLiveData<>();
 
     private PostsDataSource photosDataSource;
 
@@ -21,12 +21,12 @@ public class PostsDataSourceFactory extends DataSource.Factory<Pair<String, Inte
 
     @NonNull
     @Override
-    public DataSource<Pair<String, Integer>, Post> create() {
+    public DataSource<Pair<Long, Integer>, Post> create() {
         photosLiveDataSource.postValue(photosDataSource);
         return photosDataSource;
     }
 
-    public MutableLiveData<PageKeyedDataSource<Pair<String, Integer>, Post>> getPostsLiveDataSource() {
+    public MutableLiveData<PageKeyedDataSource<Pair<Long, Integer>, Post>> getPostsLiveDataSource() {
         return photosLiveDataSource;
     }
 

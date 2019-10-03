@@ -1,0 +1,71 @@
+{
+  "posts" : [ {
+    "authorId" : "Kiyan",
+    "authorImage" : "https://images.pexels.com/users/avatars/202443/pedro-figueras-972.jpeg?w=60&h=60&fit=crop&crop=faces",
+    "comments" : [ {
+      "authorId" : "Ankit",
+      "id" : 0,
+      "text" : "The colors of your jackets don't match though"
+    }, {
+      "authorId" : "Shaaran",
+      "id" : 1,
+      "text" : "Ooh.. what's the occassion?"
+    }, {
+      "authorId" : "Jake",
+      "id" : 2,
+      "text" : "Getting ready for Dog walkers' club, haha"
+    } ],
+    "createdDate" : "30th September, 2019",
+    "description" : ":)",
+    "id" : 0,
+    "imagePath" : "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/10/12192910/basenji-lookalike-header.jpg",
+    "imageTitle" : "Suited up",
+    "likesCount" : 14,
+    "title" : "All dressed up for the big day!",
+    "watchersCount" : 26
+  }, {
+    "authorId" : 1,
+    "authorImage" : "https://images.pexels.com/users/avatars/266550/heorhii-heorhiichuk-309.jpeg?w=60&h=60&fit=crop&crop=faces",
+    "comments" : [ {
+      "authorId" : 2,
+      "id" : 4,
+      "text" : "Nice!"
+    }, {
+      "authorId" : 3,
+      "id" : 5,
+      "text" : "Your favorite?"
+    }, {
+      "authorId" : 1,
+      "id" : 6,
+      "text" : "Youuu"
+    }, {
+      "authorId" : 3,
+      "id" : 7,
+      "text" : "Haha"
+    } ],
+    "createdDate" : "30th September, 2019",
+    "description" : "April and Daniel",
+    "id" : 1,
+    "imagePath" : "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimg1.southernliving.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2F4_3_horizontal_-_1200x900%2Fpublic%2Fimage%2F2018%2F03%2Fmain%2Fgettyimages-467179181.jpg%3Fitok%3DXPVSStb6%261520370042&w=400&c=sc&poi=face&q=85",
+    "imageTitle" : "A and D",
+    "likesCount" : 2,
+    "title" : "My 2 best friends",
+    "watchersCount" : 6
+  }, {
+    "authorId" : 1,
+    "authorImage" : "https://images.pexels.com/users/avatars/293608/oleg-magni-215.jpeg?w=60&h=60&fit=crop&crop=faces",
+    "comments" : [ {
+      "authorId" : 3,
+      "id" : 7,
+      "text" : "<3 <3"
+    } ],
+    "createdDate" : "30th September, 2019",
+    "description" : "...",
+    "id" : 2,
+    "imagePath" : "https://bloximages.chicago2.vip.townnews.com/niagara-gazette.com/content/tncms/assets/v3/editorial/0/43/0437c805-d8ca-511b-b78a-4ccbe417850a/5d3dd49495616.image.jpg",
+    "imageTitle" : "",
+    "likesCount" : 14,
+    "title" : "dum de dum dum",
+    "watchersCount" : 26
+  } ]
+}
