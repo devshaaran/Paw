@@ -5,12 +5,20 @@ import turf from 'turf';
 import 'whatwg-fetch';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
+const mbxClient = require('@mapbox/mapbox-sdk');
+const baseClient = mbxClient({ accessToken: 'pk.eyJ1IjoiamFrZW9scyIsImEiOiJjazE5cWJrZmEwMTN6M21ucnJuOWlkcnpyIn0.cR5SgRCmYX0xA9gUCBliIw' });
+const mapService = require('@mapbox/mapbox-sdk/services/map-matching');
+const mapClient = mapService(baseClient);
 
 const Map = ReactMapboxGl({
     accessToken:
       'pk.eyJ1IjoiamFrZW9scyIsImEiOiJjazE5cWJrZmEwMTN6M21ucnJuOWlkcnpyIn0.cR5SgRCmYX0xA9gUCBliIw'
   });
 
+  const linePaint = {
+    'line-color': 'red',
+    'line-width': 5
+  };
 export default class Mapviewer extends Component {
 
     constructor(props){
@@ -20,28 +28,52 @@ export default class Mapviewer extends Component {
 
         this.state = {
             geoJsonSourceOptions: {
-                    type: "geojson",
-                    data: {
-                    type: "Feature",
-                    properties: {},
-                    geometry: {
-                    type: "LineString",
-                    coordinates: [
-                        [-77.0366048812866, 38.89873175227713],
-                        [-77.03364372253417, 38.89876515143842],
-                        [-77.03364372253417, 38.89549195896866],
-                        [-77.02982425689697, 38.89549195896866],
-                        [-77.02400922775269, 38.89387200688839],
-                        [-77.01519012451172, 38.891416957534204],
-                        [-77.01521158218382, 38.892068305429156],
-                        [-77.00813055038452, 38.892051604275686],
-                        [-77.00832366943358, 38.89143365883688],
-                        [-77.00818419456482, 38.89082405874451],
-                        [-77.00815200805664, 38.88989712255097]
-                    ]
-                    }
-                    }
                 
+                "id": "route",
+                "type": "line",
+                "source": {
+                  "type": "geojson",
+                  "data": {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "coordinates": [
+                            [-122.48369693756104, 37.83381888486939],
+                            [-122.48348236083984, 37.83317489144141],
+                            [-122.48339653015138, 37.83270036637107],
+                            [-122.48356819152832, 37.832056363179625],
+                            [-122.48404026031496, 37.83114119107971],
+                            [-122.48404026031496, 37.83049717427869],
+                            [-122.48348236083984, 37.829920943955045],
+                            [-122.48356819152832, 37.82954808664175],
+                            [-122.48507022857666, 37.82944639795659],
+                            [-122.48610019683838, 37.82880236636284],
+                            [-122.48695850372314, 37.82931081282506],
+                            [-122.48700141906738, 37.83080223556934],
+                            [-122.48751640319824, 37.83168351665737],
+                            [-122.48803138732912, 37.832158048267786],
+                            [-122.48888969421387, 37.83297152392784],
+                            [-122.48987674713133, 37.83263257682617],
+                            [-122.49043464660643, 37.832937629287755],
+                            [-122.49125003814696, 37.832429207817725],
+                            [-122.49163627624512, 37.832564787218985],
+                            [-122.49223709106445, 37.83337825839438],
+                            [-122.49378204345702, 37.83368330777276]
+                        ],
+                        "type": "LineString"
+                    },
+                  }
+                },
+                "layout": {
+                  "line-join": "round",
+                  "line-cap": "round"
+                },
+                "paint": {
+                  "line-color": "#03AA46",
+                  "line-width": 200,
+                  "line-opacity": 0.8
+                }
+              
             }
         }
     }
@@ -50,36 +82,49 @@ export default class Mapviewer extends Component {
 
     onDrawCreate(features){
 
-        // 'https://api.mapbox.com/optimized-trips/v1/mapbox/driving/' + coordinates.join(';') + '?distributions=' + distributions.join(';') + '&overview=full&steps=true&geometries=geojson&source=first&access_token=' + mapboxgl.accessToken;
+        console.log(features);
 
-        fetch('https://api.mapbox.com/optimized-trips/v1/mapbox/driving/' + features.features[0].geometry.coordinates.join(';') + '?access_token=pk.eyJ1IjoiamFrZW9scyIsImEiOiJjazE5cWJrZmEwMTN6M21ucnJuOWlkcnpyIn0.cR5SgRCmYX0xA9gUCBliIw')
-        .then((response) => {
-            return response.json()
-        }).then((data) => {
-            console.log(data, 'data returned')
-            var routeGeoJSON = turf.featureCollection([turf.feature(data.trips[0].geometry)]);
+        let pointObjects = features.features[0].geometry.coordinates.map((item) => {
+            return {coordinates: item}
+        });
+        console.log(pointObjects)
 
-            console.log(routeGeoJSON, 'route geojson');
-            if (!data.trips[0]) {
-
-            }
-            else {// good to go
-                this.setState({
-                    geoJsonSourceOptions: data,
-                });
-                
-
-            }
-
-
-        })
-
+        mapClient.getMatch({
+            points: pointObjects,
+            tidy: false,
+            geometries: 'geojson'
+          })
+            .send()
+            .then(response => {
+              const matching = response.body;
+              if(matching.matchings.length > 0){
+                var coords = matching.matchings[0].geometry;
+                console.log(coords)
+                let updateOjb = {...this.state.geoJsonSourceOptions};
+                updateOjb.source.data.geometry = coords;
+                console.log(updateOjb)
+                 this.setState({geoJsonSourceOptions: updateOjb})
+              }
+             
+            })
        
     }
 
     onDrawUpdate(features){
         console.log('drow updated', features);
     }
+
+    componentWillUpdate(nextProps, nextState) {
+        const { map, geoJsonSourceOptions } = nextState;
+        if (map) {
+            console.log(geoJsonSourceOptions, 'geosource')
+          map.getSource('source_id').setData(geoJsonSourceOptions.source.data);
+        }
+      }
+
+      onStyleLoad = (map, e) => {
+        this.setState( {map} );
+      }
 
 
 
@@ -93,17 +138,22 @@ export default class Mapviewer extends Component {
                     height: '600px',
                     width: '100%'
                 }}
+                onStyleLoad={this.onStyleLoad}
                 >
                 <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
                     <Feature coordinates={[-0.481747846041145, 51.3233379650232]} />
                 </Layer>
-                <Source id="source_id" geoJsonSource={this.state.geoJsonSourceOptions} />
-                <GeoJSONLayer
-                type="Feature"
-                sourceId="source_id"
-                />
+               
+                <Source id="source_id" geoJsonSource={this.state.geoJsonSourceOptions.source} />
+                <Layer type="line" id="layer_id" sourceId="source_id" />
+               
                     
-                <DrawControl onDrawCreate={this.onDrawCreate} onDrawUpdate={this.onDrawUpdate} />
+                <DrawControl onDrawCreate={this.onDrawCreate} onDrawUpdate={this.onDrawUpdate} 
+                controls= {{
+                    line_string: true,
+                    trash: true
+                  }} 
+                  displayControlsDefault={false}/>
 
                 </Map>
 
