@@ -26,15 +26,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class ExploreFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
 
-    private ExploreViewModel exploreViewModel;
+    //private ExploreViewModel exploreViewModel;
     private MapView mMapView;
     private ImageButton btnOptions;
     GoogleMap googleMap;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        exploreViewModel =
-                ViewModelProviders.of(this).get(ExploreViewModel.class);
+
 
         View root = inflater.inflate(R.layout.fragment_explore, container, false);
         mMapView = (MapView) root.findViewById(R.id.mapView);
