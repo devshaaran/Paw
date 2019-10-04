@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -30,6 +31,11 @@ public class SocialFragment extends DaggerFragment {
     private List<String> values = new ArrayList<>();
     private List<String> pawsUsers = new ArrayList<>();
 
+    private boolean popularClicked = false;
+    private boolean nearestClicked = false;
+    private boolean ratingClicked = false;
+    private boolean distanceClicked = false;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         socialViewModel =
@@ -37,8 +43,72 @@ public class SocialFragment extends DaggerFragment {
         View root = inflater.inflate(R.layout.fragment_social, container, false);
         initFiltersListView(root);
         initSearchBar(root);
+        initHorizontalButtons(root);
         initEventsListView(root);
         return root;
+    }
+
+    private void initHorizontalButtons(View root) {
+        final Button popular = root.findViewById(R.id.popular_button);
+        popular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(popularClicked) {
+                    popular.setBackgroundResource(R.drawable.horizontal_menu_button_bg);
+                    popular.setTextColor(getContext().getColor(R.color.white));
+                    popularClicked = !popularClicked;
+                } else {
+                    popular.setBackgroundResource(R.drawable.horizontal_menu_button_clicked_bg);
+                    popular.setTextColor(getContext().getColor(R.color.black));
+                    popularClicked = !popularClicked;
+                }
+            }
+        });
+        final Button nearest = root.findViewById(R.id.nearest_button);
+        nearest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(nearestClicked) {
+                    nearest.setBackgroundResource(R.drawable.horizontal_menu_button_bg);
+                    nearest.setTextColor(getContext().getColor(R.color.white));
+                    nearestClicked = !nearestClicked;
+                } else {
+                    nearest.setBackgroundResource(R.drawable.horizontal_menu_button_clicked_bg);
+                    nearest.setTextColor(getContext().getColor(R.color.black));
+                    nearestClicked = !nearestClicked;
+                }
+            }
+        });
+        final Button rating = root.findViewById(R.id.rating_button);
+        rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ratingClicked) {
+                    rating.setBackgroundResource(R.drawable.horizontal_menu_button_bg);
+                    rating.setTextColor(getContext().getColor(R.color.white));
+                    ratingClicked = !ratingClicked;
+                } else {
+                    rating.setBackgroundResource(R.drawable.horizontal_menu_button_clicked_bg);
+                    rating.setTextColor(getContext().getColor(R.color.black));
+                    ratingClicked = !ratingClicked;
+                }
+            }
+        });
+        final Button distance = root.findViewById(R.id.distance_button);
+        distance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(distanceClicked) {
+                    distance.setBackgroundResource(R.drawable.horizontal_menu_button_bg);
+                    distance.setTextColor(getContext().getColor(R.color.white));
+                    distanceClicked = !distanceClicked;
+                } else {
+                    distance.setBackgroundResource(R.drawable.horizontal_menu_button_clicked_bg);
+                    distance.setTextColor(getContext().getColor(R.color.black));
+                    distanceClicked = !distanceClicked;
+                }
+            }
+        });
     }
 
     private void initFiltersListView(View root) {
