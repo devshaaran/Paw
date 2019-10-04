@@ -7,8 +7,7 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
     <ImageButton
         android:id="@+id/btn_options"
@@ -19,21 +18,8 @@
         android:layout_gravity="top|left"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:background="@color/transparent"
+        android:background="#00000000"
         android:scaleType="centerCrop"
-        android:src="@drawable/overlay" />
-
-    <ImageButton
-        android:id="@+id/btn_filter"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_filter"
-        app:layout_constraintLeft_toRightOf="@id/btn_options" />
-
+        android:src="@drawable/ic_layers_black_24dp" />
 
 </RelativeLayout>

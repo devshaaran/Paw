@@ -104,7 +104,7 @@ public class ExploreOptionsFragment extends BottomSheetDialogFragment implements
             for (int i = 0; i < mapMarkersList.size(); i++) {
                 googleMap.addMarker(new MarkerOptions()
                         .position(new LatLng(mapMarkersList.get(i).getLatitude(), mapMarkersList.get(i).getLongitude())).title(mapMarkersList.get(i).getTitle())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                        .icon(BitmapDescriptorFactory.fromResource(mapMarkersList.get(i).getIconResId()))
                         .draggable(false).visible(true));
             }
         }
@@ -112,9 +112,13 @@ public class ExploreOptionsFragment extends BottomSheetDialogFragment implements
 
     public void setVetStubbedData() {
         MapMarker mapMarker = new MapMarker(37.762294, -122.488171, "Irving Pet Hospital", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker.setIconResId(R.drawable.doctor_male_50);
         MapMarker mapMarker1 = new MapMarker(37.762727, -122.490757, "SF Vet Hospital Mission", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker1.setIconResId(R.drawable.doctor_male_50);
         MapMarker mapMarker2 = new MapMarker(37.764483, -122.490800, "Fuzzy Pet Health", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker2.setIconResId(R.drawable.doctor_male_50);
         MapMarker mapMarker3 = new MapMarker(37.764252, -122.484820,"Sunset Pet Hospital", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker3.setIconResId(R.drawable.doctor_male_50);
         mapMarkersList.add(mapMarker);
         mapMarkersList.add(mapMarker1);
         mapMarkersList.add(mapMarker2);
@@ -123,8 +127,11 @@ public class ExploreOptionsFragment extends BottomSheetDialogFragment implements
 
     public void setFoodStubbedData() {
         MapMarker mapMarker = new MapMarker(37.771812, -122.431927,  "Mission Pet Supply", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker.setIconResId(R.drawable.dog_bowl_50);
         MapMarker mapMarker1 = new MapMarker(37.771888, -122.428944,  "Petco", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker1.setIconResId(R.drawable.dog_bowl_50);
         MapMarker mapMarker2 = new MapMarker(37.773601, -122.429727, "Jeffrey's Natural Pet Foods", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker2.setIconResId(R.drawable.dog_bowl_50);
         mapMarkersList.add(mapMarker);
         mapMarkersList.add(mapMarker1);
         mapMarkersList.add(mapMarker2);
@@ -132,8 +139,11 @@ public class ExploreOptionsFragment extends BottomSheetDialogFragment implements
 
     public void setAdoptionStubbedData() {
         MapMarker mapMarker = new MapMarker(37.743497, -122.447031, "SF Pet Adoption Center", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker.setIconResId(R.drawable.dog_paw_50);
         MapMarker mapMarker1 = new MapMarker(37.744006, -122.451612, "Mission Bay Adoption Center", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker1.setIconResId(R.drawable.dog_paw_50);
         MapMarker mapMarker2 = new MapMarker(37.742055, -122.450518, "Petro Adoption Center", "Dog Adoption", R.drawable.ic_filter);
+        mapMarker2.setIconResId(R.drawable.dog_paw_50);
         mapMarkersList.add(mapMarker);
         mapMarkersList.add(mapMarker1);
         mapMarkersList.add(mapMarker2);

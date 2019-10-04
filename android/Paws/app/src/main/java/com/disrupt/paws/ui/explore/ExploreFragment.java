@@ -1,6 +1,8 @@
 package com.disrupt.paws.ui.explore;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class ExploreFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
@@ -60,6 +65,17 @@ public class ExploreFragment extends Fragment implements View.OnClickListener, O
             MapsInitializer.initialize(getContext());
             this.googleMap = googleMap;
             this.googleMap.getUiSettings().setZoomGesturesEnabled(true);
+
+            try {
+                boolean success = this.googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.style_json));
+
+                if (!success) {
+                    Log.e(TAG, "Style parsing failed.");
+                }
+            } catch (Resources.NotFoundException e) {
+                Log.e(TAG, "Can't find style. Error: ", e);
+            }
             this.googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.736381, -122.423179), 7f));
         } catch (Exception e) {
             e.printStackTrace();
