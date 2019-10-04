@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.android.support:design:29.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.tapadoo.android:alerter:2.0.6'
 
     def glide_version = "4.9.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"

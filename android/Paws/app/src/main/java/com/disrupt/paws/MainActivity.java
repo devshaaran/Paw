@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.tapadoo.alerter.Alerter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -41,7 +44,18 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.new_dog:
-
+                Alerter.create(MainActivity.this)
+                        .setTitle("Texting dogs around")
+                        .setText("Hi, this is puppy Stuart!")
+                        .setBackgroundColorRes(R.color.colorAccent)
+                        .setDuration(60000)
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Alerter.hide();
+                            }
+                        })
+                        .show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
