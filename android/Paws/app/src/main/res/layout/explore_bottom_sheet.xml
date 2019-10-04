@@ -11,41 +11,26 @@
     app:behavior_peekHeight="100dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-    <TextView
+    <ImageView
+        android:id="@+id/adoption"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Routes"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:src="@drawable/adoption"/>
 
-    <TextView
+    <ImageView
+        android:id="@+id/vet"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Veterinarians"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:src="@drawable/vetenaries"/>
 
-    <TextView
+    <ImageView
+        android:id="@+id/food"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Adoption Center"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Restaurants"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:src="@drawable/foodstore"/>
 
 
 </LinearLayout>
