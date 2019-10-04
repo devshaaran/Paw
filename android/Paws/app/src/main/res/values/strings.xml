@@ -12,4 +12,30 @@
     <string name="duration_hours_shortest">%1$d h</string>
     <string name="duration_days_shortest">%1$d d</string>
     <string name="duration_week_shortest">%1$d w</string>
+
+    <string-array name="social_network">
+        <item>Adrian Ritchie</item>
+        <item>Ankit Tolia</item>
+        <item>Bob Smith</item>
+        <item>Bill Jacob</item>
+        <item>Catherine Fowler</item>
+        <item>Dan Francis</item>
+        <item>Dimitar Berbatov</item>
+        <item>Emily Carter</item>
+        <item>Eric Cantona</item>
+        <item>Galo Fernandez</item>
+        <item>Henry Winter</item>
+        <item>Jose Carlos</item>
+        <item>Jordan Sancho</item>
+        <item>Juan Mata</item>
+        <item>Kiara Adams</item>
+        <item>Marcus Rashford</item>
+        <item>Monica Smith</item>
+        <item>Nathan Castillos</item>
+        <item>Pragati Kamath</item>
+        <item>Randy</item>
+        <item>Raul Sanchez</item>
+        <item>Santiago Nunez</item>
+        <item>Scott McTominay</item>
+    </string-array>
 </resources>
