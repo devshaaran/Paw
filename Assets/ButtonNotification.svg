@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="83" height="77" viewBox="0 0 83 77">
+  <defs>
+    <filter id="Ellipse_18" x="0" y="0" width="83" height="77" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_122" data-name="Group 122" transform="translate(-275 -4)">
+    <g transform="matrix(1, 0, 0, 1, 275, 4)" filter="url(#Ellipse_18)">
+      <ellipse id="Ellipse_18-2" data-name="Ellipse 18" cx="32.5" cy="29.5" rx="32.5" ry="29.5" transform="translate(9 6)" fill="#fff"/>
+    </g>
+    <g id="Message" transform="translate(14.538 16.638)">
+      <g id="outline-email-24px" transform="translate(282.321 6.728)">
+        <path id="Path_7" data-name="Path 7" d="M0,0H38.686V37.759H0Z" fill="none"/>
+        <path id="Path_8" data-name="Path 8" d="M35.447,7.41A3.388,3.388,0,0,0,32.1,4H5.345A3.388,3.388,0,0,0,2,7.41V27.87a3.388,3.388,0,0,0,3.345,3.41H32.1a3.388,3.388,0,0,0,3.345-3.41Zm-3.345,0L18.723,15.935,5.345,7.41Zm0,20.46H5.345V10.82l13.379,8.525L32.1,10.82Z" transform="translate(0.62 1.239)" fill="#6c6c6c"/>
+      </g>
+      <g id="Group_4" data-name="Group 4" transform="translate(305.019 3.774)">
+        <circle id="Ellipse_9" data-name="Ellipse 9" cx="12.278" cy="12.278" r="12.278" fill="#ff5858"/>
+        <text id="_6" data-name="6" transform="translate(12.367 17.456)" fill="#fff" font-size="17" font-family="Helvetica-Bold, Helvetica" font-weight="700"><tspan x="-4.727" y="0">6</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
