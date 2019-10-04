@@ -1,16 +1,20 @@
 package com.disrupt.paws.ui.explore;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.disrupt.paws.MainActivity;
 import com.disrupt.paws.R;
+import com.disrupt.paws.dependency_injection.AppComponent;
+import com.disrupt.paws.dependency_injection.DaggerAppComponent;
 import com.disrupt.paws.model.MapMarker;
-import com.google.android.gms.maps.CameraUpdate;
+import com.disrupt.paws.network.PawsApi;
+import com.disrupt.paws.network.RetroInstance;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -19,10 +23,22 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import dagger.android.AndroidInjector;
+import okhttp3.Credentials;
+import okhttp3.Interceptor;
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 /**
@@ -35,6 +51,8 @@ public class ExploreOptionsFragment extends BottomSheetDialogFragment implements
     private MapView mapView;
     private GoogleMap googleMap;
     private ArrayList<MapMarker> mapMarkersList = null;
+    ProgressDialog progressDialog;
+
 
     public ExploreOptionsFragment(MapView mapView, GoogleMap googleMap) { //Really bad of me!! todo
         this.mapView = mapView;
@@ -92,21 +110,27 @@ public class ExploreOptionsFragment extends BottomSheetDialogFragment implements
             if (val == 1) {
                 setAdoptionStubbedData();
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapMarkersList.get(0).getLatitude(), mapMarkersList.get(0).getLongitude()), zoomLevel));
+                for (int i = 0; i < mapMarkersList.size(); i++) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(mapMarkersList.get(i).getLatitude(), mapMarkersList.get(i).getLongitude())).title(mapMarkersList.get(i).getTitle())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                            .draggable(false).visible(true));
+                }
             }
             else if (val == 2){
                 setFoodStubbedData();
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapMarkersList.get(0).getLatitude(), mapMarkersList.get(0).getLongitude()), zoomLevel));
             }
             else {
                 setVetStubbedData();
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapMarkersList.get(0).getLatitude(), mapMarkersList.get(0).getLongitude()), zoomLevel));
+                for (int i = 0; i < mapMarkersList.size(); i++) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(mapMarkersList.get(i).getLatitude(), mapMarkersList.get(i).getLongitude())).title(mapMarkersList.get(i).getTitle())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                            .draggable(false).visible(true));
+                }
             }
-            for (int i = 0; i < mapMarkersList.size(); i++) {
-                googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(mapMarkersList.get(i).getLatitude(), mapMarkersList.get(i).getLongitude())).title(mapMarkersList.get(i).getTitle())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                        .draggable(false).visible(true));
-            }
+
         }
     }
 
@@ -122,12 +146,39 @@ public class ExploreOptionsFragment extends BottomSheetDialogFragment implements
     }
 
     public void setFoodStubbedData() {
-        MapMarker mapMarker = new MapMarker(37.771812, -122.431927,  "Mission Pet Supply", "Dog Adoption", R.drawable.ic_filter);
-        MapMarker mapMarker1 = new MapMarker(37.771888, -122.428944,  "Petco", "Dog Adoption", R.drawable.ic_filter);
-        MapMarker mapMarker2 = new MapMarker(37.773601, -122.429727, "Jeffrey's Natural Pet Foods", "Dog Adoption", R.drawable.ic_filter);
-        mapMarkersList.add(mapMarker);
-        mapMarkersList.add(mapMarker1);
-        mapMarkersList.add(mapMarker2);
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.show();
+        PawsApi service = RetroInstance.getRetrofitInstance().create(PawsApi.class);
+        Call<MapMarker> call = service.getLocation(1);
+        call.enqueue(new Callback<MapMarker>() {
+            @Override
+            public void onResponse(Call<MapMarker> call, Response<MapMarker> response) {
+                progressDialog.dismiss();
+                response.body();
+                MapMarker mapMarker = new MapMarker(37.771812, -122.431927,  "Mission Pet Supply", "Dog Adoption", R.drawable.ic_filter);
+                MapMarker mapMarker1 = new MapMarker(37.771888, -122.428944,  "Petco", "Dog Adoption", R.drawable.ic_filter);
+                MapMarker mapMarker2 = new MapMarker(37.773601, -122.429727, "Jeffrey's Natural Pet Foods", "Dog Adoption", R.drawable.ic_filter);
+                mapMarkersList.add(mapMarker);
+                mapMarkersList.add(mapMarker1);
+                mapMarkersList.add(mapMarker2);
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapMarkersList.get(0).getLatitude(), mapMarkersList.get(0).getLongitude()), 15f));
+                for (int i = 0; i < mapMarkersList.size(); i++) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(mapMarkersList.get(i).getLatitude(), mapMarkersList.get(i).getLongitude())).title(mapMarkersList.get(i).getTitle())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                            .draggable(false).visible(true));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MapMarker> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
     }
 
     public void setAdoptionStubbedData() {
@@ -139,4 +190,7 @@ public class ExploreOptionsFragment extends BottomSheetDialogFragment implements
         mapMarkersList.add(mapMarker2);
     }
 
-}
+
+
+
+    }
